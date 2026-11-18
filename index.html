@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#f0283c;--line:#34e07a;--card:rgba(27,18,20,.9);--t:#f6f0f1;--m:#b4a5a8;--bd:color-mix(in srgb,var(--line) 30%,transparent);--r:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#0b0607;color:var(--t);font:500 14px/1.45 Manrope,system-ui,sans-serif;padding-bottom:120px;-webkit-font-smoothing:antialiased}
+.w{padding:18px 16px;max-width:560px;margin:auto;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+@keyframes up{from{transform:translateY(100%)}}
+svg{width:22px;height:22px;display:block}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.top h1{flex:1;min-width:0;margin:0;font:700 21px Unbounded;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:linear-gradient(90deg,#fff,#ffb4bc);-webkit-background-clip:text;color:transparent}
+.ib{width:46px;height:46px;border-radius:15px;border:1px solid var(--bd);background:var(--card);color:var(--t);display:grid;place-items:center;position:relative;padding:0}
+.ib b{position:absolute;top:-7px;right:-7px;background:var(--acc);border-radius:10px;min-width:20px;height:20px;font:800 11px/20px Manrope;text-align:center;padding:0 5px;box-shadow:0 0 12px var(--acc)}
+.card{border:1px solid var(--bd);background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:inset 0 1px 0 #ffffff14,0 10px 30px #0006}
+.card h2{margin:0 0 6px;font:800 17px/1.3 Manrope}.card p{margin:0;color:var(--m);font-size:13px}
+.ph,.sec,.it i{background:linear-gradient(135deg,rgba(240,40,60,.22),rgba(52,224,122,.12));background-size:cover;background-position:center}
+.ph{width:100%;aspect-ratio:2/1;border-radius:24px;border:1px solid var(--bd);margin-bottom:14px;box-shadow:0 14px 36px #0007}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.it{border:1px solid var(--bd);border-radius:20px;background:var(--card);overflow:hidden;box-shadow:0 8px 24px #0005}
+.it i{display:block;aspect-ratio:1}.it .b{padding:12px}
+.n{margin:0;font-weight:700;font-size:14px}.d{margin:2px 0 10px;color:var(--m);font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pf{display:flex;justify-content:space-between;align-items:center}.pr{font:800 15px Manrope}
+.pl{width:34px;height:34px;border-radius:11px;border:0;background:var(--acc);color:#fff;font:700 20px/1 Manrope;box-shadow:0 6px 16px color-mix(in srgb,var(--acc) 45%,transparent)}
+button{font-family:Manrope,sans-serif;transition:transform .12s}button:active{transform:scale(.96)}
+.r{background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#000));color:#fff;border:0;border-radius:15px;padding:15px;font:800 14px Manrope;width:100%;box-shadow:0 10px 26px color-mix(in srgb,var(--acc) 38%,transparent)}
+button.o{background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--t);border-radius:13px;padding:11px 14px;font:700 13px Manrope}
+input,textarea,select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--t);border-radius:13px;padding:13px;margin:5px 0 10px;font:500 14px Manrope;outline:0}
+input:focus,textarea:focus,select:focus{border-color:var(--line)}
+label{font-size:11px;color:var(--m);font-weight:600}
+.nav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));display:flex;gap:2px;border:1px solid var(--bd);border-radius:26px;background:rgba(16,10,12,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:6px;max-width:532px;margin:auto;box-shadow:0 14px 40px #000a}
+.nav a{flex:1;text-align:center;padding:9px 2px 7px;font-size:10px;font-weight:700;color:var(--m);border-radius:20px;transition:.2s}
+.nav a svg{margin:0 auto 3px}.nav a.on{background:color-mix(in srgb,var(--acc) 24%,transparent);color:#fff}
+.bk{color:var(--line);margin-bottom:6px;display:inline-block;font-weight:700}
+.sh{position:fixed;inset:0;background:#000a;display:flex;align-items:flex-end;z-index:9;backdrop-filter:blur(4px)}
+.sh>div{background:#150d0f;border:1px solid var(--bd);border-radius:28px 28px 0 0;padding:22px 18px 28px;width:100%;max-height:88vh;overflow:auto;max-width:560px;margin:auto;animation:up .3s ease}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0}
+.adm{border:1px solid var(--bd);background:rgba(255,255,255,.03);border-radius:18px;padding:14px;margin:10px 0}
+h3{font:800 12px Manrope;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin:20px 2px 10px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}.chip{background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--t);border-radius:13px;padding:10px 14px;font:700 13px Manrope}.chip.on{background:var(--acc);border-color:var(--acc)}.chip:disabled{opacity:.35}.fl{display:flex;gap:8px;overflow-x:auto;margin:6px -16px 14px;padding:0 16px}.fl .chip{white-space:nowrap;flex:none}.it{cursor:pointer}
+.top h1{background:none;color:#fff;-webkit-text-fill-color:#fff}.top h1 span{color:var(--acc);-webkit-text-fill-color:var(--acc)}.lg{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.08) center/cover;border:1px solid var(--bd);flex:none}
+.ph{position:relative;overflow:hidden}
+.rise{animation:rise .65s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*70ms)}@keyframes rise{from{opacity:0;transform:translateY(24px) scale(.97)}}
+.shine{position:relative;overflow:hidden}.shine::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.13) 50%,transparent 60%);transform:translateX(-120%);animation:sh 5.5s infinite}@keyframes sh{55%,100%{transform:translateX(120%)}}
+.hero{margin:6px 2px 20px}.pill{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--bd);background:var(--card);border-radius:30px;padding:9px 15px;font-weight:700;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--acc);animation:pulse 1.6s infinite;display:inline-block}@keyframes pulse{0%{box-shadow:0 0 0 0 var(--acc)}70%,100%{box-shadow:0 0 0 10px transparent}}
+.eye{display:flex;align-items:center;gap:10px;margin:20px 0 10px;font:800 11px Manrope;letter-spacing:.3em;color:var(--line)}.eye u{width:34px;height:2px;background:var(--line);display:block}
+.big{margin:0;font:800 clamp(26px,8.4vw,40px)/1.1 Unbounded;text-transform:uppercase;letter-spacing:-.5px}.big b{color:var(--acc);text-shadow:0 0 34px color-mix(in srgb,var(--acc) 55%,transparent)}
+.sub{color:var(--m);font-size:15px;line-height:1.55;margin:14px 0 20px}
+.cta{display:flex;flex-direction:column;gap:10px;align-items:flex-start}.cta .r{width:auto;padding:16px 26px;animation:glow 2.4s infinite;display:inline-flex;gap:10px;align-items:center}.cta .o{padding:15px 24px}
+@keyframes glow{50%{box-shadow:0 10px 42px color-mix(in srgb,var(--acc) 75%,transparent)}}
+.ar{display:inline-block;animation:spin 4s ease-in-out infinite}@keyframes spin{0%,60%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:22px 0}.stats b{display:block;font:800 21px Unbounded;color:var(--acc);margin-bottom:6px;white-space:nowrap}.stats span{font:700 10px Manrope;letter-spacing:.14em;text-transform:uppercase;color:var(--m)}
+.live{border:1px solid rgba(255,170,70,.5);background:linear-gradient(120deg,rgba(255,150,40,.14),var(--card));border-radius:22px;padding:16px;margin-bottom:18px;box-shadow:0 0 34px rgba(255,150,40,.14)}
+.lv{display:flex;align-items:center;gap:10px;font:800 12px Manrope;letter-spacing:.16em;color:#ffb35c;margin-bottom:12px}
+.lr{display:flex;gap:14px;align-items:center;animation:in .5s}.lic{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#ff6a3d,#d41f2b);display:grid;place-items:center;flex:none;box-shadow:0 8px 20px #d41f2b66}.lic svg{width:26px;height:26px;fill:#fff;stroke:none}
+.lr p{margin:0;font-weight:700;font-size:15px}.lr b{color:var(--line)}.lr small{color:var(--m)}
+.sec{position:relative;height:150px;border-radius:24px;border:1px solid var(--bd);border-left:4px solid var(--c,var(--line));margin-bottom:14px;display:flex;align-items:flex-end;box-shadow:0 12px 30px #0007;transition:transform .15s}.sec:active{transform:scale(.98)}
+.st{position:relative;z-index:1;width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:54px 16px 16px;background:linear-gradient(transparent,#000e)}.st b{display:block;font:800 19px Manrope}.st small{color:var(--m);font-size:13px}
+.arw{width:42px;height:42px;flex:none;border-radius:14px;background:var(--c,var(--acc));color:#000;display:grid;place-items:center;font:800 20px/1 Manrope;box-shadow:0 6px 18px color-mix(in srgb,var(--c,var(--acc)) 50%,transparent)}
+.nav a.on{background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 60%,#000));box-shadow:0 6px 20px color-mix(in srgb,var(--acc) 45%,transparent)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+details{border:1px solid var(--bd);background:var(--card);border-radius:16px;margin-bottom:10px}summary{padding:14px 16px;font-weight:700;cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}summary::after{content:'›';float:right;transition:.2s}details[open]>summary::after{transform:rotate(90deg)}.dtb{padding:0 14px 14px}details details{background:rgba(255,255,255,.04)}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 14px;padding:0 16px}.tabs button{flex:none;background:var(--card);border:1px solid var(--bd);color:var(--t);border-radius:13px;padding:10px 16px;font:700 13px Manrope}.tabs .on{background:var(--acc);border-color:var(--acc)}.sv{position:fixed;left:16px;right:16px;bottom:96px;z-index:6;width:auto;max-width:528px;margin:auto}
+.me{display:flex;gap:14px;align-items:center}.av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#000)) center/cover;display:grid;place-items:center;font:800 26px Unbounded;flex:none;border:2px solid var(--bd)}.me h2{margin:0;font:800 18px Manrope}.me p{margin:2px 0 0}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.kp .card{margin:0;text-align:center}.kp b{display:block;font:800 21px Unbounded;color:var(--acc);margin-bottom:4px;white-space:nowrap}.kp span{font-size:12px;color:var(--m)}
+.seg{display:flex;gap:4px;padding:4px;border:1px solid var(--bd);border-radius:16px;background:var(--card);margin-bottom:14px}.seg button{flex:1;border:0;background:none;color:var(--m);border-radius:12px;padding:11px;font:700 13px Manrope}.seg .on{background:var(--acc);color:#fff}
+.oh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}.oh h2{margin:0}.st2{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;white-space:nowrap}.st2.ok{background:rgba(52,224,122,.15);color:var(--line)}.st2.wt{background:rgba(255,170,70,.15);color:#ffb35c}
+.bank{display:flex;align-items:center;gap:12px;margin:8px 0 12px}.bank svg{width:46px;height:46px;flex:none}.bank b{display:block;font:800 20px Manrope;word-break:break-word}.bank small{color:var(--m);font-size:12px;display:block}
+</style></head><body><div class="w" id="app"></div><div id="sheet"></div>
+<script>
+const T=Telegram.WebApp;T.ready();T.expand();T.setHeaderColor('#050505');T.setBackgroundColor('#050505');
+let D,cart={},tab='home',sec=null,B=[],ANIM=true,flt='',Qn=1,Vi=0,curItem=null,ptab='act';
+const sv=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const I={chat:sv('<path d="M4 5h16v11H9l-5 4V5z"/>'),cart:sv('<path d="M3 4h2l2.5 11h10L20 7H6.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>'),home:sv('<path d="M6 8h12l-1 12H7L6 8zM9 8a3 3 0 016 0"/>'),me:sv('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>'),adm:sv('<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>')};
+const TB='<svg viewBox="0 0 44 44"><path d="M22 2l17 6v13c0 10-7 18-17 21C12 39 5 31 5 21V8z" fill="#FFDD2D"/><path d="M14 14h16v5h-5.5v13h-5V19H14z" fill="#222"/></svg>';
+const fmt=t=>new Date(t*1000).toLocaleString('ru',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const api=async(p,b,raw)=>{const r=await fetch('/api/'+p,{method:b?'POST':'GET',headers:{'X-Init':T.initData,...(b&&!raw?{'Content-Type':'application/json'}:{}),...(raw?{'Content-Type':raw.type}:{})},body:raw||(b?JSON.stringify(b):undefined)});return r.json()};
+const bg=u=>u?`style="background-image:url('${e(u)}')"`:'';
+const cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const lines=()=>D.sections.flatMap(s=>s.items.flatMap(i=>i.opts&&i.opts.length?i.opts.map(o=>({id:i.id+':'+o.id,name:i.name+' · '+o.name,price:o.price,stock:o.stock})):[{id:i.id,name:i.name,price:i.price,stock:1e9}]));
+const total=()=>lines().reduce((a,i)=>a+(cart[i.id]||0)*Number(i.price),0);
+const CUR={rub:'₽ Рубли',uah:'₴ Гривны',byn:'Br Белорусские рубли'},SY={rub:'₽',uah:'₴',byn:'Br'};
+const rgba=(h,a)=>`rgba(${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)},${a})`;
+function applyTheme(){const t=D.theme,r=document.documentElement.style,b=document.body.style;r.setProperty('--card',rgba(t.card,t.op));r.setProperty('--line',t.line);r.setProperty('--g',t.line);r.setProperty('--acc',t.acc);b.backgroundColor=t.bgcol;b.backgroundImage=t.bg?`linear-gradient(#0006,#0006),url('${t.bg}')`:`radial-gradient(90% 50% at 50% -5%,${rgba(t.acc,.24)},transparent 70%),radial-gradient(70% 45% at 100% 100%,${rgba(t.line,.10)},transparent)`;b.backgroundSize='cover';b.backgroundAttachment='fixed'}
+const SD={tag:'Лучшее здесь',eyebrow:'PREMIUM SHOP',hero1:'Всё нужное',hero2:'в одном месте',sub:'Быстрая выдача, честные цены и поддержка 24/7.',logo:''};
+const bgs=(u,x='')=>`style="${x}${u?`background-image:url('${e(u)}')`:''}"`;
+const ago=t=>{const m=Math.max(1,Math.round((Date.now()/1000-t)/60));return m<60?m+' мин назад':m<1440?Math.round(m/60)+' ч назад':Math.round(m/1440)+' дн назад'};
+function guide(){sheet('<h3>Как это работает</h3><p style="line-height:1.7">'+e(D.guide).replace(/\n/g,'<br>')+'</p>')}
+function count(){document.querySelectorAll('.cnt').forEach(el=>{const v=el.dataset.v,m=v.match(/^(\D*)(\d[\d ]*\d|\d)(.*)$/);if(!m)return;const to=parseInt(m[2].replace(/ /g,''));if(!to)return;const t0=performance.now(),st=t=>{const p=Math.min(1,(t-t0)/1300),x=Math.round(to*(1-Math.pow(1-p,3)));el.textContent=m[1]+x.toLocaleString('ru')+m[3];if(p<1)requestAnimationFrame(st)};requestAnimationFrame(st)})}
+function ticker(){const el=document.getElementById('lt');if(!el)return;let k=0;const show=()=>{const r=D.recent[k++%D.recent.length];el.innerHTML=`<div class="lr"><div class="lic">${'<svg viewBox="0 0 24 24"><path d="M12 2c1 4 6 6 6 12a6 6 0 01-12 0c0-2.500 1-4 2.500-5 .2 2 1 3 2 3.200C11 8 10.500 5 12 2z"/></svg>'}</div><div><p>Покупатель купил <b>${e(r.name)}</b></p><small>${ago(r.t)}</small></div></div>`};show();clearInterval(window._tk);window._tk=setInterval(()=>{if(!document.getElementById('lt'))return clearInterval(window._tk);show()},3600)}
+async function load(){D=await api('data');D.shop=Object.assign({},SD,D.shop);D.shop.stats=D.shop.stats||[{n:'24/7',l:'Поддержка'},{n:'15 мин',l:'Отправка'},{n:'auto',l:'Заказов выполнено'}];applyTheme();render()}
+function render(){
+ const a=document.getElementById('app'),R=ANIM?'rise':'';ANIM=false;
+ const top=`<div class="top">${D.shop.logo?`<div class="lg" style="background-image:url('${e(D.shop.logo)}')"></div>`:''}<h1>${e(D.shop.name.split(' ').slice(0,-1).join(' '))} <span>${e(D.shop.name.split(' ').slice(-1)[0])}</span></h1><button class="ib" onclick="T.openTelegramLink('https://t.me/${e(D.shop.support)}')">${I.chat}</button><button class="ib" onclick="openCart()">${I.cart}<b>${cnt()}</b></button></div>`;
+ let h='';
+ if(tab==='home'&&!sec){const S=D.shop,col=['#b8ff3d','#2fe0c8','#a06bff','#ff7a3d','#3da8ff'];
+ h=top+`<div class="ph shine ${R}" ${bgs(S.banner)}></div>
+ <div class="hero ${R}" style="--i:1"><span class="pill"><i class="dot"></i>${e(S.tag)}</span><div class="eye"><u></u>${e(S.eyebrow)}</div><h2 class="big">${e(S.hero1)}<br><b>${e(S.hero2)}</b></h2><p class="sub">${e(S.sub)}</p><div class="cta"><button class="r" onclick="document.getElementById('secs').scrollIntoView({behavior:'smooth'})">Выбрать раздел <span class="ar">↗</span></button><button class="o" onclick="guide()">Как это работает</button></div></div>
+ <div class="card ${R}" style="--i:2"><h2>${e(S.info1)}</h2><p>${e(S.info2)}</p></div>
+ <div class="stats ${R}" style="--i:3">${S.stats.map(t=>{const v=t.n==='auto'?D.done:t.n;return `<div><b class="cnt" data-v="${e(v)}">${e(v)}</b><span>${e(t.l)}</span></div>`}).join('')}</div>
+ ${D.recent&&D.recent.length?`<div class="live ${R}" style="--i:4"><div class="lv"><i class="dot"></i>СЕЙЧАС ПОКУПАЮТ</div><div id="lt"></div></div>`:''}<div id="secs"></div>`+
+ D.sections.map((s,n)=>`<div class="sec shine ${R}" ${bgs(s.banner,`--i:${n+5};--c:${col[n%5]};`)} onclick="ANIM=1;sec='${s.id}';flt='';render()"><div class="st"><div><b>${e(s.title)}</b><small>${e(s.sub||'')}</small></div><div class="arw"><span class="ar">↗</span></div></div></div>`).join('')} else if(tab==='home'){const s=D.sections.find(x=>x.id===sec);h=top+`<a class="bk" onclick="ANIM=1;sec=null;render()">← Назад</a><h3>${e(s.title)}</h3>${(s.filters||[]).length?`<div class="fl"><button class="chip ${flt?'':'on'}" onclick="flt='';render()">Все</button>${s.filters.map(z=>`<button class="chip ${flt===z.id?'on':''}" onclick="flt='${z.id}';render()">${e(z.name)}</button>`).join('')}</div>`:''}<div class="grid">`+
+  s.items.filter(i=>!flt||i.cat===flt).map((i,k)=>`<div class="it ${R}" style="--i:${k}" onclick="openItem('${i.id}')"><i ${bg(i.photo)}></i><div class="b"><p class="n">${e(i.name)}</p><p class="d">${e(i.desc)}</p><div class="pf"><span class="pr">${i.opts&&i.opts.length?'от '+Math.min(...i.opts.map(o=>+o.price))+' ₽':e(i.price)+' ₽'}</span><button class="pl">+</button></div></div></div>`).join('')+`</div>`}
+ else if(tab==='me'){h=top+profile()}
+ else if(tab==='adm'){h=top+admin()}
+ a.innerHTML=h+`<div class="nav">${[['home','home','Каталог'],['me','me','Профиль'],...(D.is_admin?[['adm','adm','Админ']]:[])].map(n=>`<a class="${tab===n[0]?'on':''}" onclick="ANIM=1;tab='${n[0]}';sec=null;render()">${I[n[1]]}${n[2]}</a>`).join('')}</div>`;if(tab==='home'&&!sec){count();ticker()}}
+function add(id){const l=lines().find(x=>x.id===id);if((cart[id]||0)>=l.stock)return T.showAlert('Больше нет в наличии');cart[id]=(cart[id]||0)+1;T.HapticFeedback.impactOccurred('light');render()}
+function openCart(){
+ const its=lines().filter(i=>cart[i.id]);
+ sheet(`<h3>Корзина</h3>`+(its.length?its.map(i=>`<div class="row"><span>${e(i.name)}</span><span>${cart[i.id]} × ${e(i.price)} ₽ <button class="o" onclick="add('${i.id}');openCart()">+</button> <button class="o" onclick="cart['${i.id}']--;if(!cart['${i.id}'])delete cart['${i.id}'];render();openCart()">−</button></span></div>`).join('')+
+  `<div class="row"><b>Итого</b><b>${total()} ₽</b></div><label>Оплата</label><select id="cur">${Object.keys(CUR).map(k=>`<option value="${k}">${CUR[k]}</option>`).join('')}</select><button class="r" onclick="pay()">Оформить заказ</button>`:'<p>Пусто</p>'))}
+function profile(){const U=(T.initDataUnsafe&&T.initDataUnsafe.user)||{},nm=[U.first_name,U.last_name].filter(Boolean).join(' ')||U.username||'Покупатель',all=D.my_orders||[],act=all.filter(o=>o.status!=='done'),his=all.filter(o=>o.status==='done'),spent=his.reduce((a,o)=>a+Number(o.total),0),list=ptab==='act'?act:his;
+ return `<div class="card me"><div class="av" ${U.photo_url?bg(U.photo_url):''}>${U.photo_url?'':e(nm[0].toUpperCase())}</div><div><h2>${e(nm)}</h2><p>${U.username?'@'+e(U.username)+' · ':''}ID ${e(U.id||'—')}</p></div></div>
+ <div class="kp"><div class="card"><b>${all.length}</b><span>Всего заказов</span></div><div class="card"><b>${spent} ₽</b><span>Куплено на сумму</span></div></div>
+ <div class="seg"><button class="${ptab==='act'?'on':''}" onclick="ptab='act';render()">Заказы (${act.length})</button><button class="${ptab==='his'?'on':''}" onclick="ptab='his';render()">История (${his.length})</button></div>`+
+ (list.length?list.slice().reverse().map(o=>`<div class="card"><div class="oh"><h2>#${e(o.id)}</h2><span class="st2 ${o.status==='done'?'ok':'wt'}">${o.status==='done'?'Выдан':'Ждёт оплаты'}</span></div><p>${o.items.map(e).join('<br>')}</p><div class="row" style="margin:10px 0 0"><small style="color:var(--m)">${fmt(o.t)}</small><b>${o.total} ₽${o.cur&&o.cur!=='rub'&&o.sum&&SY[o.cur]?' · '+o.sum+' '+SY[o.cur]:''}</b></div></div>`).join(''):`<div class="card"><p>${ptab==='act'?'Активных заказов нет. Выберите товар в каталоге.':'История пока пуста.'}</p></div>`)+
+ `<div class="card"><button class="o" style="width:100%;margin-bottom:8px" onclick="guide()">Как это работает</button><button class="o" style="width:100%" onclick="T.openTelegramLink('https://t.me/${e(D.shop.support)}')">Написать в поддержку</button></div>`}
+function copyReq(){const t=window._rq||'';(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>T.showAlert('Скопировано')).catch(()=>T.showAlert(t))}
+function pay(){const c=document.getElementById('cur').value,r=Number(D.pay.rates[c]||1),sum=+(total()*r).toFixed(2),q=D.pay.req[c]||'';window._rq=q;
+ sheet(`<h3>Оплата: ${CUR[c]}</h3><div class="card"><h2>${sum} ${SY[c]}</h2>`+(c==='rub'?`<div class="bank">${TB}<div><small>Т-Банк · перевод по номеру</small><b>${e(q)}</b>${D.pay.holder?`<small>${e(D.pay.holder)}</small>`:''}</div></div>`:`<p>${e(q).replace(/\n/g,'<br>')}</p>`)+`<button class="o" style="margin-top:10px" onclick="copyReq()">Скопировать реквизиты</button></div><p style="font-size:12px;color:var(--m)">Переведите точную сумму и нажмите кнопку ниже.</p><button class="r" onclick="done('${c}')">Я оплатил</button>`)}
+function openItem(id){curItem=id;Qn=1;const i=D.sections.flatMap(s=>s.items).find(x=>x.id===id);Vi=i.opts&&i.opts.length?Math.max(0,i.opts.findIndex(o=>o.stock>0)):0;drawItem(0)}
+function drawItem(k){const i=D.sections.flatMap(s=>s.items).find(x=>x.id===curItem),op=i.opts&&i.opts.length?i.opts:null,o=op?op[Vi]:null,st=o?o.stock:1e9,pr=+(o?o.price:i.price);
+ sheet(`${i.photo?`<div class="ph" style="aspect-ratio:1;border-radius:20px" ${bg(i.photo)}></div>`:''}<h2 style="margin:12px 0 4px;font:800 19px Manrope">${e(i.name)}</h2><p style="color:var(--m);margin:0 0 12px">${e(i.desc)}</p>`+(op?`<label>Вариант</label><div class="chips">${op.map((x,j)=>`<button class="chip ${j===Vi?'on':''}" ${x.stock?'':'disabled'} onclick="Vi=${j};Qn=1;drawItem(1)">${e(x.name)} · ${e(x.price)} ₽</button>`).join('')}</div>`:'')+`<label>Сколько штук</label><div class="chips">${[1,2,3,4,5].map(n=>`<button class="chip ${n===Qn?'on':''}" ${n>st?'disabled':''} onclick="Qn=${n};drawItem(1)">${n}</button>`).join('')}</div><div class="row" style="margin:14px 0"><span>Итого</span><b style="font-size:18px">${pr*Qn} ₽</b></div><button class="r" ${st<1?'disabled style="opacity:.5"':''} onclick="addQ()">В корзину</button>`,k)}
+function addQ(){const i=D.sections.flatMap(s=>s.items).find(x=>x.id===curItem),lid=i.opts&&i.opts.length?i.id+':'+i.opts[Vi].id:i.id,l=lines().find(x=>x.id===lid);if((cart[lid]||0)+Qn>l.stock)return T.showAlert('Столько нет в наличии');cart[lid]=(cart[lid]||0)+Qn;T.HapticFeedback.impactOccurred('light');closeS();render()}
+function pick(id){const i=D.sections.flatMap(s=>s.items).find(x=>x.id===id);sheet(`<h3>${e(i.name)}</h3>`+i.opts.map(o=>`<div class="row"><span>${e(o.name)}<br><small style="color:var(--m)">${o.stock?'В наличии: '+o.stock:'Нет в наличии'}</small></span><span><b>${e(o.price)} ₽</b> <button class="pl" ${o.stock?'':'disabled style="opacity:.4"'} onclick="add('${id}:${o.id}');closeS()">+</button></span></div>`).join(''))}
+function addOpts(n,m){const it=D.sections[n].items[m];it.opts=it.opts||[];['День','Неделя','30 дней'].forEach((nm,j)=>it.opts.push({id:'o'+Date.now()+j,name:nm,price:'100',newkeys:''}));render()}
+async function conf(id){const r=await api('confirm',{id});T.showAlert(r.msg);load()}
+async function done(c){const r=await api('order',{cart,cur:c});if(r.ok){cart={};closeS();T.showAlert('Заказ #'+r.id+' принят! После подтверждения оплаты ключи придут в чат бота.');load()}else T.showAlert(r.err==='stock'?'Нет в наличии нужного количества':'Ошибка')}
+function sheet(h,keep){const d=document.querySelector('#sheet .sh>div');if(keep&&d){d.innerHTML=h;return}document.getElementById('sheet').innerHTML=`<div class="sh" onclick="if(event.target===this)closeS()"><div>${h}</div></div>`}
+function closeS(){document.getElementById('sheet').innerHTML=''}
+/* ---------- АДМИНКА ---------- */
+function f(o,k,l,up){const i=B.push([o,k])-1;return `<label>${l}</label><input value="${e(o[k])}" oninput="B[${i}][0][B[${i}][1]]=this.value">`+(up?`<input type="file" accept="image/*" onchange="upl(this,${i})">`:'')}
+function sel(o,k,l,opts){const i=B.push([o,k])-1;return `<label>${l}</label><select onchange="B[${i}][0][B[${i}][1]]=this.value">${Object.keys(opts).map(v=>`<option value="${v}" ${o[k]==v?'selected':''}>${opts[v]}</option>`).join('')}</select>`}
+function ta(o,k,l){const i=B.push([o,k])-1;return `<label>${l}</label><textarea rows="5" oninput="B[${i}][0][B[${i}][1]]=this.value">${e(o[k])}</textarea>`}
+function col(k,l){return `<label>${l}</label><input type="color" value="${D.theme[k]}" oninput="D.theme.${k}=this.value;applyTheme()">`}
+async function upl(inp,i){const x=inp.files[0];if(!x)return;const r=await api('upload',1,x);B[i][0][B[i][1]]=r.url;render()}
+let at='home',OP=new Set();
+const dt=(k,t,b)=>`<details ${OP.has(k)?'open':''} ontoggle="this.open?OP.add('${k}'):OP.delete('${k}')"><summary>${t}</summary><div class="dtb">${b}</div></details>`;
+function resetTheme(){Object.assign(D.theme,{bg:'',bgcol:'#0b0607',card:'#1b1214',op:'0.9',line:'#34e07a',acc:'#f0283c'});applyTheme();render()}
+function admin(){B=[];const s=D.shop,p=D.pay,NM={home:'Главная',cat:'Товары',pay:'Оплата',ord:'Заказы',look:'Вид'};
+ let h=`<div class="tabs">${Object.keys(NM).map(k=>`<button class="${at===k?'on':''}" onclick="at='${k}';render()">${NM[k]}</button>`).join('')}</div>`;
+ if(at==='home')h+=`<div class="card">${f(s,'name','Название магазина')}${f(s,'banner','Главное фото (1080×540)',1)}${f(s,'hero1','Заголовок')}${f(s,'hero2','Заголовок, цветная часть')}${f(s,'sub','Подзаголовок')}${f(s,'info1','Плашка: заголовок')}${f(s,'info2','Плашка: текст')}${f(s,'support','Поддержка: username без @')}</div>`+dt('more','Дополнительно',`${f(s,'logo','Логотип',1)}${f(s,'tag','Метка над заголовком')}${f(s,'eyebrow','Надпись над заголовком')}${s.stats.map((t,k)=>f(t,'n','Показатель '+(k+1)+' (auto = выполненные заказы)')+f(t,'l','Подпись '+(k+1))).join('')}`);
+ else if(at==='cat')h+=D.sections.map((x,n)=>dt('s'+x.id,'📁 '+e(x.title),`${f(x,'title','Название раздела')}${f(x,'sub','Подзаголовок')}${f(x,'banner','Баннер (1080×360)',1)}`+
+  dt('f'+x.id,'Фильтры ('+(x.filters||[]).length+')',(x.filters||[]).map((fl,k)=>`<div class="row"><div style="flex:1">${f(fl,'name','Фильтр')}</div><button class="o" onclick="D.sections[${n}].filters.splice(${k},1);render()">✕</button></div>`).join('')+`<button class="o" onclick="(D.sections[${n}].filters=D.sections[${n}].filters||[]).push({id:'f'+Date.now(),name:'Новый'});render()">+ Фильтр</button>`)+
+  x.items.map((i,m)=>dt('i'+i.id,'📦 '+e(i.name)+' · '+e(i.price)+' ₽',`${f(i,'name','Название')}${f(i,'price','Цена, ₽ (если нет сроков)')}${f(i,'desc','Описание')}${f(i,'photo','Фото (800×800)',1)}${sel(i,'cat','Фильтр',Object.assign({'':'— без фильтра —'},Object.fromEntries((x.filters||[]).map(z=>[z.id,z.name]))))}`+
+   dt('o'+i.id,'🔑 Сроки и ключи ('+(i.opts||[]).length+')',(i.opts||[]).map((o,k)=>`<div class="adm">${f(o,'name','Срок')}${f(o,'price','Цена, ₽')}<label>Ключей: ${o.stock||0}</label>${ta(o,'newkeys','Добавить ключи (по одному в строке)')}<button class="o" onclick="D.sections[${n}].items[${m}].opts.splice(${k},1);render()">Удалить срок</button></div>`).join('')+`<button class="o" onclick="addOpts(${n},${m})">+ День / неделя / 30 дней</button>`)+
+   `<button class="o" onclick="D.sections[${n}].items.splice(${m},1);render()">Удалить товар</button>`)).join('')+
+  `<button class="o" onclick="D.sections[${n}].items.push({id:'i'+Date.now(),name:'Новый товар',price:'100',desc:'',photo:''});render()">+ Товар</button> <button class="o" onclick="if(confirm('Удалить раздел?')){D.sections.splice(${n},1);render()}">Удалить раздел</button>`)).join('')+`<button class="o" onclick="D.sections.push({id:'s'+Date.now(),title:'Новый раздел',banner:'',items:[]});render()">+ Раздел</button>`;
+ else if(at==='pay')h+=`<div class="card"><b>₽ Рубли — основная валюта, цены в ₽</b>${f(p.req,'rub','Номер телефона (Т-Банк)')}${f(p,'holder','Получатель (имя, по желанию)')}</div>`+['uah','byn'].map(k=>`<div class="card"><b>${CUR[k]}</b>${f(p.req,k,'Реквизиты')}${f(p.rates,k,'Курс: 1 ₽ = ? '+SY[k])}</div>`).join('');
+ else if(at==='ord')h+=(D.all_orders||[]).slice().reverse().map(o=>`<div class="row card"><span>#${o.id} @${e(o.user)}<br><small>${e(o.items.join(', '))}</small></span><span>${o.total} ₽${o.cur&&o.cur!=='rub'&&o.sum&&SY[o.cur]?' ('+o.sum+' '+SY[o.cur]+')':''} ${o.status==='done'?'✅':`<button class="o" onclick="conf('${o.id}')">Выдать</button>`}</span></div>`).join('')||'<div class="card"><p>Заказов пока нет</p></div>';
+ else h+=`<div class="card">${f(D.theme,'bg','Фон: фото (ссылка или загрузка)',1)}${col('bgcol','Цвет фона')}${col('card','Цвет плашек')}<label>Прозрачность плашек</label><input type="range" min="0.2" max="1" step="0.05" value="${D.theme.op}" oninput="D.theme.op=this.value;applyTheme()">${col('line','Цвет линий')}${col('acc','Цвет кнопок')}<button class="o" onclick="resetTheme()">Сбросить цвета</button></div><div class="card">${ta(D,'guide','Инструкция для клиентов')}</div>`;
+ return h+`<button class="r sv" onclick="saveA()">💾 Сохранить</button>`}
+async function saveA(){await api('admin',{shop:D.shop,pay:D.pay,sections:D.sections,theme:D.theme,guide:D.guide});T.showAlert('Сохранено');load()}
+load();
+</script></body></html>
